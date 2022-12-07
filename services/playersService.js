@@ -1,7 +1,7 @@
 const db = require("../db");
 
 const getPlayers = async () => {
-  players = await db.query("SELECT * FROM players");
+  players = await db.query("SELECT * FROM players ORDER BY score DESC LIMIT 8");
   return players.rows;
 };
 
