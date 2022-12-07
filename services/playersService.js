@@ -1,32 +1,16 @@
-const Pool = require("pg").Pool;
-const pool = new Pool({
-  user: "me",
-  host: "localhost",
-  database: "api",
-  password: "password",
-  port: 5432,
-});
+const db = require("../db");
 
 const getPlayers = async () => {
-  pool.query("SELECT * FROM players", (error, results) => {
-    if (error) {
-      throw error;
-    }
-    return results;
-  });
+  players = await db.query("SELECT * FROM players");
+  return players.rows;
 };
 
 const addPlayer = async ({ nickname, score }) => {
-  pool.query(
-    "INSERT INTO players new player (nickname, score)",
-    [nickname, score],
-    (error, results) => {
-      if (error) {
-        throw error;
-      }
-      return results;
-    }
+  players = await db.query(
+    "INSERT INTO players (nickname, score) values ($1, $2) RETURNING *",
+    [nickname, score]
   );
+  return players.rows[0];
 };
 
 module.exports = {
