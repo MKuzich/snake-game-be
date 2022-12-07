@@ -1,11 +1,12 @@
 const handleError = (err, req, res, next) => {
   const {
     status = "fail",
-    code = 500,
+    code,
     message = err.message,
     data = "Internal Server Error",
   } = err;
-  res.status(code).json({
+  const statusCode = code >= 100 && code < 600 ? code : 500;
+  res.status(statusCode).json({
     status,
     code,
     message,
