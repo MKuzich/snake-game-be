@@ -1,26 +1,14 @@
 const { getPlayers, addPlayer } = require("../services/playersService");
 
-const getPlayersController = async (_, res) => {
+const getPlayersController = async () => {
   const data = await getPlayers();
-  res.json({
-    status: "success",
-    code: 200,
-    data: {
-      players: data,
-    },
-  });
+  return data;
 };
 
-const addPlayerController = async (req, res) => {
+const addPlayerController = async (req) => {
   const { body } = req;
   const data = await addPlayer(body);
-  res.json({
-    status: "success",
-    code: 200,
-    data: {
-      player: data,
-    },
-  });
+  return data;
 };
 
 module.exports = {

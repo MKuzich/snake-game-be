@@ -3,6 +3,7 @@ const logger = require("morgan");
 const cors = require("cors");
 
 const playersRouter = require("./routers/playersRouter");
+const { handleError } = require("./middlewares/handleError");
 
 const app = express();
 
@@ -15,22 +16,6 @@ app.use(express.json());
 app.use("/players", playersRouter);
 app.use(express.static("public"));
 
-app.use((_, res) => {
-  res.status(404).json({
-    status: "error",
-    code: 404,
-    message: "Use api on another routes, wrong route",
-    data: "Not found",
-  });
-});
-
-app.use((err, _, res) => {
-  res.status(500).json({
-    status: "fail",
-    code: 500,
-    message: err.message,
-    data: "Internal Server Error",
-  });
-});
+app.use(handleError);
 
 module.exports = app;
