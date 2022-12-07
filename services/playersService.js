@@ -1,11 +1,9 @@
 const db = require("../db");
 
 const getPlayers = async () => {
-  console.log("Before get");
   const { rows } = await db.query(
     "SELECT * FROM players ORDER BY score DESC LIMIT 8"
   );
-  console.log("Error ------->>>>", rows);
   return rows;
 };
 
