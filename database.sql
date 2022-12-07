@@ -1,5 +1,5 @@
 create TABLE players(
     id SERIAL PRIMARY KEY,
-    nickname VARCHAR(255),
+    nickname VARCHAR(30),
     score INTEGER
 )
